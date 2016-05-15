@@ -13,11 +13,11 @@ We would also like to see unit testing for the app. Feel free to use JUnit and M
 Feel free to add any other features, like multi-day forecasts, weather of neighboring cities, or maybe even weather related news.
 
 ## Initial Considerations
-#### Basic use case
+### Basic use case
 
 Users click the launcher icon and the application starts. The user is presented with the current weather conditions as well as with a list of forecasts for future days.
 
-#### Basic application flow and structures
+### Basic application flow and structures
 
 * After the application is launched the MainActivity is started.
 * The MainActivity checks for the necessary permissions and possibly starts a second activity to request any needed permissions.
@@ -29,7 +29,7 @@ Users click the launcher icon and the application starts. The user is presented 
 * CurrentWeatherFragment uses CurrentWeatherData to display current weather information to the user.
 * ForecastWeatherFragment uses ForecastWeatherData to display forecast weather information to the user.
 
-#### Which weather API?
+### Which weather API?
 
 Having no experience with the different web-services for retrieving weather data, I started by comparing popular APIs. My main concerns for the API were documentation, price structure and features. Of the many varied possibilities, I seriously considered APIs from Yahoo Weather, National Oceanic and Atmospheric Administration (NOAA), OpenWeatherMap and Weather Underground.
 
@@ -46,9 +46,9 @@ uses myKey to request weather data for lat, long values of 35,139.
     http://api.openweathermap.org/data/2.5/forecast?lat=35&lon=139&cnt=3&APPID=myKey
 
 
-#### Acquiring current and forecast weather conditions
+### Acquiring current and forecast weather conditions
 
-Current and forecast weather data is aquired with the following urls. Forecast period as given is for two days. An OpenWeatherMap period is three hours and there are eight periods in 24 hours, there are 16 periods in 2 days. The period can be changed by changing the 2 in `cnt=2` to the desired value. There is a 5 day limit. There is a max call for 5*24/3 = 40 periods.
+Current and forecast weather data is aquired with the following urls. The number of resulting forecast periods as given is for three. An OpenWeatherMap period is three hours and there are eight periods in 24 hours. The period can be changed by changing the 3 in `cnt=3` to the desired value. There is a five day limit or 5*24/3 = 40 periods.
 
 ##### Typical current weather API call and response**
 
@@ -177,21 +177,28 @@ I am unable to find a complete list of error codes. A successful current weather
 
 #### Getting Data objects from service call results.
 
-Results are in json and have many nested objects and each has an array. I shall define the java class for these as static inner from within CurrentWeatherData or ForecastWeatherData classes as appropriate.
+Results are in json and have many nested objects and each has an array. I shall define the java class for these as static inner from within CurrentWeatherData or ForecastWeatherData classes as appropriate. Both Rain and Snow data have a illegally named parameter of '3h'. These two classes have custom deserializers.
 
 ##### CurrentWeatherData Parameters
 
+Show link here to
 
 
-##### ForecastWeatherData
+##### ForecastWeatherData Parameters
+
+Show Link here
 
 ##### Testing the data
 The application will need to be able to take a json string representing either current or forecast data (cod 200 or "200") and turn it into the appropriate object instance. The resulting instance should have the correct data.
 
 The application will need to be able to take a json string representing an unsuccessful weather data retrieval (any cod other than 200 or "200") and turn it into an error result instance object.
 
+#### Making a network service call to OpenWeatherMap.
 
-#### CurrentWeatherRetrieverAsyncTask
+
+
+
+### CurrentWeatherRetrieverAsyncTask
 
 CurrentWeatherRetrieverAsyncTask is used to retrieve the current weather conditions and returns the retrieved data in a CurrentWeatherData object.
 
