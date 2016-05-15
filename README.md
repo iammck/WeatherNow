@@ -46,7 +46,7 @@ uses myKey to request weather data for lat, long values of 35,139.
     http://api.openweathermap.org/data/2.5/forecast?lat=35&lon=139&cnt=3&APPID=myKey
 
 
-##### Acquiring current and forecast weather conditions
+#### Acquiring current and forecast weather conditions
 
 Current and forecast weather data is aquired with the following urls. Forecast period as given is for two days. An OpenWeatherMap period is three hours and there are eight periods in 24 hours, there are 16 periods in 2 days. The period can be changed by changing the 2 in `cnt=2` to the desired value. There is a 5 day limit. There is a max call for 5*24/3 = 40 periods.
 
@@ -79,12 +79,14 @@ A call to <code>http://api.openweathermap.org/data/2.5/weather?lat=35&lon=139</c
 
 To get the forecast over three hour periods, a call to <code>http://api.openweathermap.org/data/2.5/forecast?lat=35&lon=139&cnt=3</code> will result in:
 
-    {"city":{
-        "id":1851632,
-        "name":"Shuzenji",
-        "coord":{
-            "lon":138.933334,
-            "lat":34.966671},
+    {
+        "city":{
+            "id":1851632,
+            "name":"Shuzenji",
+            "coord":{
+                "lon":138.933334,
+                "lat":34.966671
+            },
             "country":"JP",
             "population":0,
             "sys":{"population":0}
@@ -92,75 +94,73 @@ To get the forecast over three hour periods, a call to <code>http://api.openweat
         "cod":"200",
         "message":0.0038,
         "cnt":3,
-        "list":[
-        {
-            "dt":1463173200,
-            "main":{
-                "temp":286.79,
-                "temp_min":284.563,
-                "temp_max":286.79,
-                "pressure":939.66,
-                "sea_level":1035.55,
-                "grnd_level":939.66,
-                "humidity":86,
-                "temp_kf":2.23
-            },
-            "weather":[{
-                "id":800,
-                "main":"Clear",
-                "description":"clear sky",
-                "icon":"01n"
-            }],
-            "clouds":{"all":0},
-            "wind":{"speed":0.79,"deg":343},
-            "sys":{"pod":"n"},
-            "dt_txt":"2016-05-13 21:00:00"
+        "list":[{
+                "dt":1463173200,
+                "main":{
+                    "temp":286.79,
+                    "temp_min":284.563,
+                    "temp_max":286.79,
+                    "pressure":939.66,
+                    "sea_level":1035.55,
+                    "grnd_level":939.66,
+                    "humidity":86,
+                    "temp_kf":2.23
+                },
+                "weather":[{
+                    "id":800,
+                    "main":"Clear",
+                    "description":"clear sky",
+                    "icon":"01n"
+                }],
+                "clouds":{"all":0},
+                "wind":{"speed":0.79,"deg":343},
+                "sys":{"pod":"n"},
+                "dt_txt":"2016-05-13 21:00:00"
         },{
-            "dt":1463184000,
-            "main":{
-                "temp":295.54,
-                "temp_min":293.429,
-                "temp_max":295.54,
-                "pressure":940.42,
-                "sea_level":1035.6,
-                "grnd_level":940.42,
-                "humidity":56,
-                "temp_kf":2.11
-            },
-            "weather":[{
-                "id":802,
-                "main":"Clouds",
-                "description":"scattered clouds",
-                "icon":"03d"
-            }],
-            "clouds":{"all":32},
-            "wind":{"speed":0.91,"deg":86.5083},
-            "sys":{"pod":"d"},
-            "dt_txt":"2016-05-14 00:00:00"
+                "dt":1463184000,
+                "main":{
+                    "temp":295.54,
+                    "temp_min":293.429,
+                    "temp_max":295.54,
+                    "pressure":940.42,
+                    "sea_level":1035.6,
+                    "grnd_level":940.42,
+                    "humidity":56,
+                    "temp_kf":2.11
+                },
+                "weather":[{
+                    "id":802,
+                    "main":"Clouds",
+                    "description":"scattered clouds",
+                    "icon":"03d"
+                }],
+                "clouds":{"all":32},
+                "wind":{"speed":0.91,"deg":86.5083},
+                "sys":{"pod":"d"},
+                "dt_txt":"2016-05-14 00:00:00"
         },{
-            "dt":1463194800,
-            "main":{
-                "temp":295.35,
-                "temp_min":293.354,
-                "temp_max":295.35,
-                "pressure":940.04,
-                "sea_level":1035.22,
-                "grnd_level":940.04,
-                "humidity":56,
-                "temp_kf":1.99
-            },
-            "weather":[{
-                "id":500,
-                "main":"Rain",
-                "description":"light rain",
-                "icon":"10d"}],
-            "clouds":{"all":92},
-            "wind":{"speed":0.89,"deg":96.5013},
-            "rain":{"3h":0.035},
-            "sys":{"pod":"d"},
-            "dt_txt":"2016-05-14 03:00:00"
-        }
-        ]
+                "dt":1463194800,
+                "main":{
+                    "temp":295.35,
+                    "temp_min":293.354,
+                    "temp_max":295.35,
+                    "pressure":940.04,
+                    "sea_level":1035.22,
+                    "grnd_level":940.04,
+                    "humidity":56,
+                    "temp_kf":1.99
+                },
+                "weather":[{
+                    "id":500,
+                    "main":"Rain",
+                    "description":"light rain",
+                    "icon":"10d"}],
+                "clouds":{"all":92},
+                "wind":{"speed":0.89,"deg":96.5013},
+                "rain":{"3h":0.035},
+                "sys":{"pod":"d"},
+                "dt_txt":"2016-05-14 03:00:00"
+}]
     }
 
 ##### Error results
@@ -173,7 +173,7 @@ There may be a possibility of an error result.
     {"cod":401, "message": "Invalid API key. Please see http://openweathermap.org/faq#error401 for more info."}
     Notice the cod is the first is a String and a Integer in the second
 
-I am unable to find a complete list of error codes. A successful current weather result has a `"cod":200` value and a forecast has a value of "cod":"200""`, implying any other value is an error response.
+I am unable to find a complete list of error codes. A successful current weather result has a `"cod":200` value and a forecast has a value of "cod":"200""`, implying any other value is an error response. Although it would be nice to handle error responses differently.
 
 #### Getting Data objects from service call results.
 

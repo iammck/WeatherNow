@@ -15,7 +15,6 @@ public class CurrentWeatherData {
     public static class Coord {
         Double lat;
         Double lon;
-
         public Coord(){};
     }
 
@@ -104,9 +103,9 @@ public class CurrentWeatherData {
     Clouds clouds;
     Rain rain;
     Snow snow;
-    Long dt; // date in unix
+    Integer dt; // date in unix
     Sys sys;
-    String id; // City id
+    Integer id; // City id
     String name; // City name
     Integer cod; // should be
     String message; // error message

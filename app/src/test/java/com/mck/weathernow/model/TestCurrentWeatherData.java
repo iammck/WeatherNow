@@ -23,18 +23,6 @@ public class TestCurrentWeatherData {
     private Collection collection;
     private String inputJson;
 
-    @BeforeClass
-    public static void oneTimeSetUp(){
-        // one-time initialization code
-        System.out.println("@BeforeClass - oneTimeSetUp");
-    }
-
-    @AfterClass
-    public static void oneTimeTearDown(){
-        // one-time clean up code
-        System.out.println("@AfterClass - oneTimeTearDown");
-    }
-
     @Before
     public void setUp(){
         // a result from the call to a url of
@@ -47,10 +35,6 @@ public class TestCurrentWeatherData {
                 "\"dt\":1463265986," +
                 "\"sys\":{\"message\":0.0039,\"country\":\"US\",\"sunrise\":1463229072,\"sunset\":1463283657}," +
                 "\"id\":5809844,\"name\":\"Seattle\",\"cod\":200}";
-    }
-
-    @After
-    public void tearDown(){
     }
 
     /**
@@ -103,16 +87,28 @@ public class TestCurrentWeatherData {
         assertTrue("Expecting sea level value", rMain.sea_level.equals(1027.05));
         assertTrue("Expecting ground level value", rMain.grnd_level.equals(1016.59));
 
-        //"rain":{"3h":1.355}
+        //rain, snow, wind and clouds
         assertTrue("Expecting rain value", result.rain.threeHour.equals(1.355));
         assertTrue("Expecting null snow value" , result.snow == null);
+        assertTrue("Expecting wind speed value" , result.wind.speed.equals(1.91));
+        assertTrue("Expecting wind deg wind value" , result.wind.deg.equals(new Double(231)));
+        assertTrue("Expecting clouds all value" , result.clouds.all.equals(new Double(92)));
+
+        // dt, sys, (city) name, cod
+        assertTrue("Expecting dt value", result.dt.equals(1463265986));
+        assertTrue("Expecting sys country value" , result.sys.country.equals("US"));
+        assertTrue("Expecting sys sun rise value" , result.sys.sunrise.equals(new Long(1463229072)));
+        assertTrue("Expecting sys sun set value" , result.sys.sunset.equals(new Long(1463283657)));
+        assertTrue("Expecting (city) name value" , result.name.equals("Seattle"));
+        assertTrue("Expecting cod value" , result.cod.equals(200));
+        assertTrue("Expecting (city) id value" , result.id.equals(5809844));
     }
 
     /**
      * Can instantiate from error code.
      */
     @Test
-    public void canInstantiateFromErrorCode() {
+    public void canInstantiateFromErrorJson() {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create(); // new Gson();
         String inputJson = "{\"cod\":401, \"message\": \"Invalid API key. " +
