@@ -190,35 +190,35 @@ I am unable to find a complete list of error codes. A successful current weather
 
 Results are in json and have many nested objects and each has an array. I shall define the java class for these as static inner from within CurrentWeatherData or ForecastWeatherData classes as appropriate. Both Rain and Snow data have a illegally named parameter of '3h'. These two classes have custom deserializers.
 
-##### CurrentWeatherData Parameters
+##### Current Weather Data Parameters
 
-Show link here to
+Current weather data parameters can be found [here](http://openweathermap.org/current).
 
 
 ##### ForecastWeatherData Parameters
 
-Show Link here
+Forcast weather data parameters can be found [here](http://openweathermap.org/forecast5).
 
-##### Testing the data
+##### Testing the resulting data
 The application will need to be able to take a json string representing either current or forecast data (cod 200 or "200") and turn it into the appropriate object instance. The resulting instance should have the correct data.
 
 The application will need to be able to take a json string representing an unsuccessful weather data retrieval (any cod other than 200 or "200") and turn it into an error result instance object.
 
-#### Making a network service call to OpenWeatherMap.
+#### Making a network service call data request to OpenWeatherMap.
 
+Requests over the network to OpenWeatherMap use HttpURLConnection and are bundled together in the OpenWeatherMapRequest class. The result is json. Network error should return null (unsuccessfully reaching OpenWeatherMap). OpenWeatherMap errors result in json that may be returned to the request giver.
 
+There are three requests:
+* get Current weather.
+* get Forecast weather for two days (sixteen periods).
+* get icon from weather icon.
 
+#### Asynchronous network requests
 
-### CurrentWeatherRetrieverAsyncTask
+OpenWeatherMapRequest calls are blocking and must be called from within an AsyncTask implementation.
 
-CurrentWeatherRetrieverAsyncTask is used to retrieve the current weather conditions and returns the retrieved data in a CurrentWeatherData object.
+* CurrentWeatherRetrieverAsyncTask is used to retrieve the current weather conditions and returns the retrieved data in a CurrentWeatherData object.
+* ForecastWeatherRetrieverAsyncTask is used to retrieve the forecast weather conditions and returns the retrieved data in a ForecastWeatherData object.
+* WeatherIconRetrieverAsyncTask is used to get the icon as a png for the weather.
 
-
-
-b
-
-b
-
-b
-
-b
+# EOF
