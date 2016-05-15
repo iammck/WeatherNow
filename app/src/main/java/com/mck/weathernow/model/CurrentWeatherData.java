@@ -13,45 +13,45 @@ import java.lang.reflect.Type;
 public class CurrentWeatherData {
 
     public static class Coord {
-        Double lat;
-        Double lon;
+        public Double lat;
+        public Double lon;
         public Coord(){};
     }
 
     public static class Weather {
-        Integer id;
-        String main;
-        String description;
-        String icon;
+        public Integer id;
+        public String main;
+        public String description;
+        public String icon;
         public Weather(){};
     }
 
     public static class Main {
-        Double temp;
-        Double pressure;
-        Double humidity;
-        Double temp_min;
-        Double temp_max;
-        Double sea_level;
-        Double grnd_level;
+        public Double temp;
+        public Double pressure;
+        public Double humidity;
+        public Double temp_min;
+        public Double temp_max;
+        public Double sea_level;
+        public Double grnd_level;
         public Main(){};
     }
 
     public static class Wind {
         //wind.speed Wind speed. Unit Default: meter/sec, Metric: meter/sec, Imperial: miles/hour.
         //wind.deg Wind direction, degrees (meteorological)
-        Double speed;
-        Double deg;
+        public Double speed;
+        public Double deg;
         public Wind(){};
     }
 
     public static class Clouds {
-        Double all; // coverage as a percent.
+        public Double all; // coverage as a percent.
         public Clouds(){};
     }
 
     public static class Rain {
-        Double threeHour; // Rain volume for the last 3 hours
+        public Double threeHour; // Rain volume for the last 3 hours
         public Rain(){};
     }
 
@@ -70,7 +70,7 @@ public class CurrentWeatherData {
     }
 
     public static class Snow {
-        Double threeHour; // Snow volume for the last 3 hours
+        public Double threeHour; // Snow volume for the last 3 hours
         public Snow(){};
     }
 
@@ -89,26 +89,26 @@ public class CurrentWeatherData {
     }
 
     public static class Sys {
-        Long sunrise;
-        Long sunset;
-        String country;
+        public Long sunrise;
+        public Long sunset;
+        public String country;
         public Sys(){};
     }
 
 
-    Coord coord;
-    Weather[] weather;
-    Main main;
-    Wind wind;
-    Clouds clouds;
-    Rain rain;
-    Snow snow;
-    Integer dt; // date in unix
-    Sys sys;
-    Integer id; // City id
-    String name; // City name
-    Integer cod; // should be
-    String message; // error message
+    public Coord coord;
+    public Weather[] weather;
+    public Main main;
+    public Wind wind;
+    public Clouds clouds;
+    public Rain rain;
+    public Snow snow;
+    public Integer dt; // date in unix
+    public Sys sys;
+    public Integer id; // City id
+    public String name; // City name
+    public Integer cod; // should be
+    public String message; // error message
 
     public CurrentWeatherData(){}
 

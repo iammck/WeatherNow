@@ -12,35 +12,35 @@ import java.lang.reflect.Type;
  */
 public class ForecastWeatherData {
     public static class City {
-        Long id;
-        String name;
-        Coord coord;
-        String country;
+        public Long id;
+        public String name;
+        public Coord coord;
+        public String country;
         public City(){}
     }
 
     public static class Coord {
-        Double lat;
-        Double lon;
+        public Double lat;
+        public Double lon;
         public Coord(){}
     }
 
     public static class Main {
-        Double temp;
-        Double temp_min;
-        Double temp_max;
-        Double pressure;
-        Double sea_level;
-        Double grnd_level;
-        Double humidity;
+        public Double temp;
+        public Double temp_min;
+        public Double temp_max;
+        public Double pressure;
+        public Double sea_level;
+        public Double grnd_level;
+        public Double humidity;
         public Main(){}
     }
 
     public static class Weather {
-        Integer id;
-        String main;
-        String description;
-        String icon;
+        public Integer id;
+        public String main;
+        public String description;
+        public String icon;
         public Weather(){}
     }
 
@@ -48,18 +48,18 @@ public class ForecastWeatherData {
     public static class Wind {
         //wind.speed Wind speed. Unit Default: meter/sec, Metric: meter/sec, Imperial: miles/hour.
         //wind.deg Wind direction, degrees (meteorological)
-        Double speed;
-        Double deg;
+        public Double speed;
+        public Double deg;
         public Wind(){}
     }
 
     public static class Clouds {
-        Double all; // coverage as a percent.
+        public Double all; // coverage as a percent.
         public Clouds(){}
     }
 
     public static class Rain {
-        Double threeHour; // Rain volume for the last 3 hours
+        public Double threeHour; // Rain volume for the last 3 hours
         public Rain(){}
     }
 
@@ -78,7 +78,7 @@ public class ForecastWeatherData {
     }
 
     public static class Snow {
-        Double threeHour; // Snow volume for the last 3 hours
+        public Double threeHour; // Snow volume for the last 3 hours
         public Snow(){};
     }
 
@@ -97,22 +97,22 @@ public class ForecastWeatherData {
     }
 
     public static class Period {
-        Integer dt;
-        Main main;
-        Weather[] weather;
-        Clouds clouds;
-        Wind wind;
-        Rain rain;
-        Snow snow;
+        public Integer dt;
+        public Main main;
+        public Weather[] weather;
+        public Clouds clouds;
+        public Wind wind;
+        public Rain rain;
+        public Snow snow;
         public Period(){}
     }
 
 
-    City city;
-    String cod;
-    String message;
-    Integer cnt;
-    Period[] list;
+    public City city;
+    public String cod;
+    public String message;
+    public Integer cnt;
+    public Period[] list;
 
     public ForecastWeatherData(){
 
