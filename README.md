@@ -35,9 +35,12 @@ Having no experience with the different web-services for retrieving weather data
 
 Yahoo Weather has good pricing, but could not accept geo coordinates. NOAA has the best pricing, but results are in XML and I want something that returns json. OpenWeatherMap and WeatherUnderground both accept geo coordinates and return json objects, but their free tiers have low calls per a minute rate and price structure that gets expensive quickly. Still, results from WeatherUnderground are ripe with data and they have good documentation. OpenWeatherMap also has good documentation and even though the resulting data is not as robust as WeatherUnderground, getting the data from json to java objects will be technically easier. OpenWeatherMap also has a nice set of weather icons. As a result of all this I have decided to go with OpenWeatherMap.
 
-##### How to use OpenWeatherMap API**
+##### How to use OpenWeatherMap API
 
-OpenWeatherMap requires an API key to make a request. For example to get the current weather conditions call: <code>http://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&APPID=myKey</code><br>
+OpenWeatherMap requires an API key to make a request. For example to get the current weather conditions call:
+
+    http://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&APPID=myKey
+
 uses myKey to request weather data for lat, long values of 35,139.
 
     Current Weather:
@@ -50,9 +53,13 @@ uses myKey to request weather data for lat, long values of 35,139.
 
 Current and forecast weather data is aquired with the following urls. The number of resulting forecast periods as given is for three. An OpenWeatherMap period is three hours and there are eight periods in 24 hours. The period can be changed by changing the 3 in `cnt=3` to the desired value. There is a five day limit or 5*24/3 = 40 periods.
 
-##### Typical current weather API call and response**
+##### Typical current weather API call and response
 
-A call to <code>http://api.openweathermap.org/data/2.5/weather?lat=35&lon=139</code> results in:
+A call to
+
+    http://api.openweathermap.org/data/2.5/weather?lat=35&lon=139
+
+results in:
 
     {
         "coord":{"lon":138.93,"lat":34.97},
@@ -77,7 +84,11 @@ A call to <code>http://api.openweathermap.org/data/2.5/weather?lat=35&lon=139</c
 
 ##### Typical forecast weather API call and response
 
-To get the forecast over three hour periods, a call to <code>http://api.openweathermap.org/data/2.5/forecast?lat=35&lon=139&cnt=3</code> will result in:
+To get the forecast over three periods, a call to
+
+    http://api.openweathermap.org/data/2.5/forecast?lat=35&lon=139&cnt=3</code>
+
+will result in:
 
     {
         "city":{
