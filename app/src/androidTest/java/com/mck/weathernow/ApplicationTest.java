@@ -9,5 +9,8 @@ import android.test.ApplicationTestCase;
 public class ApplicationTest extends ApplicationTestCase<Application> {
     public ApplicationTest() {
         super(Application.class);
+        assertTrue("0 is not 0", (new Integer(0)).equals(0));
     }
+
+
 }
