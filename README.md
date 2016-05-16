@@ -213,12 +213,23 @@ There are three requests:
 * get Forecast weather for two days (sixteen periods).
 * get icon from weather icon.
 
+##### Integration tests
+
+Current and Forecast request results are asserted by integration tests which check to make sure the network call respond with expected results.
+Asserting the retrieval of icons is also an integration test, yet the app uses BitmapFactory on the result to get a Bitmap and as a result requires android instrumentation.
+
 #### Asynchronous network requests
 
 OpenWeatherMapRequest calls are blocking and must be called from within an AsyncTask implementation.
 
-* CurrentWeatherRetrieverAsyncTask is used to retrieve the current weather conditions and returns the retrieved data in a CurrentWeatherData object.
-* ForecastWeatherRetrieverAsyncTask is used to retrieve the forecast weather conditions and returns the retrieved data in a ForecastWeatherData object.
-* WeatherIconRetrieverAsyncTask is used to get the icon as a png for the weather.
+* GetCurrentWeatherRetrieverAsyncTask is used to retrieve the current weather conditions and returns the retrieved data in a CurrentWeatherData object. It requires a callback, latitude and longitude and returns a CurrentWeatherData instance or null. These values are passed in as Callback, Double, Double.
+* GetForecastWeatherRetrieverAsyncTask is used to retrieve the forecast weather conditions and returns the retrieved data in a ForecastWeatherData object. It requires a latitude, longitude and period (the number of cycles). It returns a ForecastWeatherData instance or null.
+* GetWeatherIconRetrieverAsyncTask is used to get the icon as a png for the weather. It requires an icon id. The id is obtained from weather.icon data. The result is a Bitmap or null.
+
+(ATM, there is no caching, but when there is it will happen here.)
+
+##### Testing
+
+I have mocked out the OpenWeatherMapService and return a predetermined result for each test. This way each asyncTask can be isolated from its network call.
 
 # EOF

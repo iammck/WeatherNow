@@ -70,8 +70,10 @@ public class ForecastWeatherData {
         @Override
         public Rain deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             Rain result = new Rain(); // the json should look like "3h"=10.3
-            result.threeHour = json.getAsJsonObject().get("3h").getAsDouble();
-
+            JsonElement vObj = json.getAsJsonObject().get("3h");
+            if (vObj != null) {
+                result.threeHour = json.getAsJsonObject().get("3h").getAsDouble();
+            }
             return result;
 
         }
@@ -89,8 +91,10 @@ public class ForecastWeatherData {
         @Override
         public Snow deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             Snow result = new Snow(); // the json should look like "3h"=10.3
-            result.threeHour = json.getAsJsonObject().get("3h").getAsDouble();
-
+            JsonElement vObj = json.getAsJsonObject().get("3h");
+            if (vObj != null) {
+                result.threeHour = json.getAsJsonObject().get("3h").getAsDouble();
+            }
             return result;
 
         }
