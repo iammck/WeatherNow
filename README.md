@@ -230,6 +230,11 @@ OpenWeatherMapRequest calls are blocking and must be called from within an Async
 
 ##### Testing
 
-I have mocked out the OpenWeatherMapService and return a predetermined result for each test. This way each asyncTask can be isolated from its network call.
+I have mocked out the OpenWeatherMapService and return a predetermined result for each test. This way each asyncTask can be isolated from its network call. Each test will basically resulting in the follwing steps.
+- set up the MockOpenWeatherMapService to return the expected result
+- Create a callback handler
+- create the asyncTask
+- make the call and wait
+- assert it happened and has the expected result
 
 # EOF
