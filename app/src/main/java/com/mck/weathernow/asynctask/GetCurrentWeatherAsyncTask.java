@@ -12,7 +12,7 @@ import com.mck.weathernow.service.OpenWeatherMapService;
  */
 public class GetCurrentWeatherAsyncTask extends AsyncTask<Object,Integer,CurrentWeatherData>{
     public interface callback {
-        public void onCurrentWeatherResult(CurrentWeatherData data);
+        void onCurrentWeatherResult(CurrentWeatherData data);
     }
 
     GetCurrentWeatherAsyncTask.callback callback;
