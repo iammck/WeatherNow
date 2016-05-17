@@ -11,17 +11,25 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
 
 public class MainActivity extends AppCompatActivity
         implements ActivityCompat.OnRequestPermissionsResultCallback,
         GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener {
+        GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private static final int MY_PERMISSIONS_REQUEST = 72; // for when making permissions
     private boolean needsDeniedPermission = false; // if was denied a necessary permission.
@@ -123,6 +131,30 @@ public class MainActivity extends AppCompatActivity
             currentWeatherFragment.updateLocation(lastLocation);
             forecastWeatherFragment.updateLocation(lastLocation);
         }
+
+        // create location request instance
+        final LocationRequest locationRequest = new LocationRequest();
+        locationRequest.setInterval(20000);
+        locationRequest.setFastestInterval(10000);
+        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+
+        // get a location settings builder
+        LocationSettingsRequest.Builder settingsBuilder = new LocationSettingsRequest.Builder()
+                .addLocationRequest(locationRequest);
+        // get the settings and if not able to use location show dialog.
+        PendingResult<LocationSettingsResult> pendingResult =
+                LocationServices.SettingsApi.checkLocationSettings(googleApiClient, settingsBuilder.build());
+        pendingResult.setResultCallback(new ResultCallback<LocationSettingsResult>() {
+            @Override
+            public void onResult(@NonNull LocationSettingsResult locationSettingsResult) {
+                Status status = locationSettingsResult.getStatus();
+                if (!status.isSuccess()) {
+                    showNeedsPermissionDialog();
+                }
+            }
+        });
+        LocationServices.FusedLocationApi.requestLocationUpdates(
+                googleApiClient, locationRequest, MainActivity.this);
     }
 
     @Override
@@ -160,4 +192,8 @@ public class MainActivity extends AppCompatActivity
         dialog.show(getSupportFragmentManager(), "Permissions");
     }
 
+    @Override
+    public void onLocationChanged(Location location) {
+        Log.v("MainActivity", "location change " + location);
+    }
 }
