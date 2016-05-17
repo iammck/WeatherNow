@@ -218,7 +218,7 @@ There are three requests:
 Current and Forecast request results are asserted by integration tests which check to make sure the network call respond with expected results.
 Asserting the retrieval of icons is also an integration test, yet the app uses BitmapFactory on the result to get a Bitmap and as a result requires android instrumentation.
 
-#### Asynchronous network requests
+#### Asynchronous network requests with AsyncTasks
 
 OpenWeatherMapRequest calls are blocking and must be called from within an AsyncTask implementation.
 
@@ -236,5 +236,20 @@ I have mocked out the OpenWeatherMapService and return a predetermined result fo
 - create the asyncTask
 - make the call and wait
 - assert it happened and has the expected result
+
+
+### The Main Activity
+
+The MainActivity sets up the application, checks for permissions, loads and shows the fragments.
+
+#### Getting permission
+
+If the application is running on a build version greater than M, then the internet and location permission should be checks at runtime. The main activity checks for permission during onCreate() and possibly attempts to get permission. If The mainActivity gets to onResume and still needs permissions or needs to notify the user that it needs permission then a dialog box is shown.
+
+#### CurrentConditionsFragment
+
+The CurrentConditionsFragment is responsible for showing current weather data. In order to do this, during onResume() it must first check if it has permission to access the internet and location, if so it requests location at most every 45 seconds. once a location is received, it gets the currentWeatherData with an asyncTask. once the weather data is received, it is loaded into the view. the icon id is obtained from the data and an asyncTask is used to obtain a bitmap which is then loaded into the view.
+
+
 
 # EOF
