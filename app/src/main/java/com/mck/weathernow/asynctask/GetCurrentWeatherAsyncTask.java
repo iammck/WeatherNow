@@ -19,6 +19,7 @@ public class GetCurrentWeatherAsyncTask extends AsyncTask<Object,Integer,Current
 
     @Override
     protected CurrentWeatherData doInBackground(Object... params) {
+        if (isCancelled()) return null;
         callback = (GetCurrentWeatherAsyncTask.callback) params[0];
         return OpenWeatherMapService.instance().requestCurrentWeather((Double)params[1],(Double)params[2]);
     }
