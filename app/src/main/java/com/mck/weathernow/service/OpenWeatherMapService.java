@@ -23,6 +23,8 @@ import java.util.Locale;
  * Created by Michael on 5/15/2016.
  */
 public class OpenWeatherMapService {
+    protected static final String units = "imperial";
+
     protected static OpenWeatherMapService instance;
     protected static final String lockKey = "instance_lock";
     public static OpenWeatherMapService instance(){
@@ -44,10 +46,13 @@ public class OpenWeatherMapService {
      * @return the resulting CurrentWeatherData.
      */
     public CurrentWeatherData requestCurrentWeather(Double lat, Double lon){
+
+        if (lat == null || lon == null) return null;
+
         try {
             String request = String.format(Locale.US,
-                    "http://api.openweathermap.org/data/2.5/weather?lat=%f&lon=%f&APPID=%s",
-                    lat, lon, Constants.API_ID);
+                    "http://api.openweathermap.org/data/2.5/weather?lat=%f&lon=%f&units=%s&APPID=%s",
+                    lat, lon,units, Constants.API_ID);
             URL url = new URL(request);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestProperty("User-Agent", USER_AGENT);
@@ -75,7 +80,7 @@ public class OpenWeatherMapService {
     public ForecastWeatherData requestForecastWeather(Double lat, Double lon,Integer periods){
         try {
             String request = String.format( Locale.US,
-                    "http://api.openweathermap.org/data/2.5/forecast?lat=%f&lon=%f&cnt=%d&APPID=%s",
+                    "http://api.openweathermap.org/data/2.5/forecast?lat=%f&lon=%f&cnt=%d&units=%s&APPID=%s",
                     lat, lon,periods, Constants.API_ID);
             URL url = new URL(request);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
