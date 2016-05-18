@@ -250,7 +250,7 @@ I have mocked out the OpenWeatherMapService and return a predetermined result fo
 
 ### The Main Activity
 
-The MainActivity sets up the application, checks for permissions, loads and shows the fragments.
+The MainActivity sets up the application, checks for permissions, loads and shows the fragments. The MainActivity is also responsible for checking location services available and alerting the user via AlertDialog if there and any setting that must be updated for the application to work correctly.
 
 #### Getting permission
 
@@ -260,6 +260,15 @@ If the application is running on a build version greater than M, then the intern
 
 The CurrentConditionsFragment is responsible for showing current weather data. In order to do this, during onResume() it must first check if it has permission to access the internet and location, if so it requests location at most every 45 seconds. once a location is received, it gets the currentWeatherData with an asyncTask. once the weather data is received, it is loaded into the view. the icon id is obtained from the data and an asyncTask is used to obtain a bitmap which is then loaded into the view.
 
+#### Testing
+
+The application should be tested with instrumentation to assert it loads correctly as well as handles permissions, network and location access correctly. It should also be tested to assert it correctly handles lack of permissions, network and location access scenarios.
+
+Each fragment should be tested to assert it shows the correct views. Each fragment should be tested to be assured it handles receiving and responding to location updates. Each fragment sould be tested to be sure it correctly handles error and null results from the weather service.
+
+### Caching
+
+OpenWeatherMap provides icons to be used to visually display the weather. To reduce the need to request then over the network once a new icon is retrieved it is saved locally to file and subsequent requests use the file to get the icon for result.
 
 
 # EOF
