@@ -27,7 +27,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/ivLaterIcon"
-            android:contentDescription="@string/later_today_icon" />
+            android:contentDescription="@string/later_today_icon"
+            android:scaleType="fitXY"
+            android:minWidth="30dp"
+            android:minHeight="30dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -62,7 +65,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/ivTomorrowIcon"
-            android:contentDescription="@string/tomorrow_icon" />
+            android:contentDescription="@string/tomorrow_icon"
+            android:scaleType="fitXY"
+            android:minHeight="30dp"
+            android:minWidth="30dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -96,7 +102,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/ivAfterTomorrowIcon"
-            android:contentDescription="@string/after_tomorrow_icon" />
+            android:contentDescription="@string/after_tomorrow_icon"
+            android:scaleType="fitXY"
+            android:minHeight="30dp"
+            android:minWidth="30dp" />
 
         <TextView
             android:layout_width="wrap_content"
