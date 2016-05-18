@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity
     private CurrentWeatherFragment currentWeatherFragment;
     private ForecastWeatherFragment forecastWeatherFragment;
     private GoogleApiClient googleApiClient;
+    private Location lastLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,7 +126,7 @@ public class MainActivity extends AppCompatActivity
             return;
         }
         // update fragments with last location.
-        Location lastLocation = LocationServices.FusedLocationApi
+        lastLocation = LocationServices.FusedLocationApi
                 .getLastLocation(googleApiClient);
         if (lastLocation != null) {
             currentWeatherFragment.updateLocation(lastLocation);
@@ -136,6 +137,7 @@ public class MainActivity extends AppCompatActivity
         final LocationRequest locationRequest = new LocationRequest();
         locationRequest.setInterval(20000);
         locationRequest.setFastestInterval(10000);
+        locationRequest.setSmallestDisplacement(100);// in meters.
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
         // get a location settings builder
@@ -194,6 +196,10 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.v("MainActivity", "location change " + location);
+        lastLocation = location;
+        if (lastLocation != null) {
+            currentWeatherFragment.updateLocation(lastLocation);
+            forecastWeatherFragment.updateLocation(lastLocation);
+        }
     }
 }
