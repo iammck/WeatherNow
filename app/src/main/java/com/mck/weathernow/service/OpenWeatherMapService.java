@@ -81,7 +81,7 @@ public class OpenWeatherMapService {
         try {
             String request = String.format( Locale.US,
                     "http://api.openweathermap.org/data/2.5/forecast?lat=%f&lon=%f&cnt=%d&units=%s&APPID=%s",
-                    lat, lon,periods, Constants.API_ID);
+                    lat, lon,periods,units, Constants.API_ID);
             URL url = new URL(request);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestProperty("User-Agent", USER_AGENT);
