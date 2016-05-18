@@ -12,6 +12,16 @@ We would also like to see unit testing for the app. Feel free to use JUnit and M
 
 Feel free to add any other features, like multi-day forecasts, weather of neighboring cities, or maybe even weather related news.
 
+### Test and build
+
+Run unit tests from a windows command line with the command `.\gradlew test` from the project root folder.
+
+Run instrumented tests from a windows command line with a connected android device over ADB with the command `.\gradle connectedAndroidTest`.
+
+Test reports for both android and unit tests can be found under the app sub directory at `\app\build\reports\`.
+
+Use `.\gradlew assembleDebug` to build a debug APK. The apk may be found at `app/build/outputs/apk/`.
+
 ## Initial Considerations
 ### Basic use case
 
