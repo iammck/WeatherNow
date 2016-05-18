@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity
         googleApiClient.disconnect();
     }
 
+    /*// no menu yet
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     /**
      * Checks to see if there is a network connection.
