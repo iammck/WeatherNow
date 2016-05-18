@@ -147,7 +147,8 @@ public class ForecastWeatherFragment extends Fragment
             TextView tvAfterDesc = (TextView) view.findViewById(R.id.tvAfterTomorrowDescription);
             if (tomTemp != null){
                 tvTomTemp.setVisibility(View.VISIBLE);
-                tvTomTemp.setText(tomTemp.toString());
+                Integer intValue = tomTemp.intValue();
+                tvTomTemp.setText(intValue.toString());
             } else {
                 tvTomTemp.setVisibility(View.GONE);
             }
@@ -159,7 +160,8 @@ public class ForecastWeatherFragment extends Fragment
             }
             if (laterTemp != null){
                 tvLaterTemp.setVisibility(View.VISIBLE);
-                tvLaterTemp.setText(laterTemp.toString());
+                Integer intValue = laterTemp.intValue();
+                tvLaterTemp.setText(intValue.toString());
             } else {
                 tvLaterTemp.setVisibility(View.GONE);
             }
@@ -171,7 +173,8 @@ public class ForecastWeatherFragment extends Fragment
             }
             if (afterTemp != null){
                 tvAfterTemp.setVisibility(View.VISIBLE);
-                tvAfterTemp.setText(afterTemp.toString());
+                Integer intValue = laterTemp.intValue();
+                tvAfterTemp.setText(intValue.toString());
             } else {
                 tvAfterTemp.setVisibility(View.GONE);
             }
@@ -191,7 +194,7 @@ public class ForecastWeatherFragment extends Fragment
                 }
                 value.execute(this, tomIcon, key);
             }
-            if (tomIcon != null){
+            if (laterIcon != null){
                 Integer key = 2;
                 GetWeatherIconAsyncTask value = new GetWeatherIconAsyncTask();
                 synchronized (getWeatherIconAsyncTasks) {
@@ -199,13 +202,13 @@ public class ForecastWeatherFragment extends Fragment
                 }
                 value.execute(this, laterIcon, key);
             }
-            if (laterIcon != null){
+            if (afterIcon != null){
                 Integer key = 16;
                 GetWeatherIconAsyncTask value = new GetWeatherIconAsyncTask();
                 synchronized (getWeatherIconAsyncTasks) {
                     getWeatherIconAsyncTasks.put(key, value);
                 }
-                value.execute(this, tomIcon, key);
+                value.execute(this, afterIcon, key);
             }
         }
     }

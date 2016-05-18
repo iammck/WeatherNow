@@ -1,6 +1,8 @@
 package com.mck.weathernow;
 
 /**
+ * Constants file
+ *
  * Created by Michael on 5/15/2016.
  */
 public class Constants {
