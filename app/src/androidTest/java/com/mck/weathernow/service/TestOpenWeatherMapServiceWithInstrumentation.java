@@ -22,7 +22,7 @@ public class TestOpenWeatherMapServiceWithInstrumentation extends ApplicationTes
      */
     @Test
     public void testRequestWeatherIcon() throws Exception {
-        Bitmap result = OpenWeatherMapService.instance().requestWeatherIcon("10d");
+        Bitmap result = OpenWeatherMapService.instance().requestWeatherIcon(getContext(), "10d");
         assertTrue("Resulting bit map was null.", result != null);
     }
 

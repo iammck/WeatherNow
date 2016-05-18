@@ -1,5 +1,6 @@
 package com.mck.weathernow.asynctask;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.mck.weathernow.model.CurrentWeatherData;
@@ -43,7 +44,8 @@ public class MockOpenWeatherMapService extends OpenWeatherMapService {
     }
 
     @Override
-    public Bitmap requestWeatherIcon(String id) {
+    public Bitmap requestWeatherIcon(Context context, String iconId) {
         return iconResult;
     }
+
 }

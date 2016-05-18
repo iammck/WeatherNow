@@ -1,7 +1,9 @@
 package com.mck.weathernow.service;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -9,8 +11,13 @@ import com.mck.weathernow.Constants;
 import com.mck.weathernow.model.CurrentWeatherData;
 import com.mck.weathernow.model.ForecastWeatherData;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -27,6 +34,7 @@ public class OpenWeatherMapService {
 
     protected static OpenWeatherMapService instance;
     protected static final String lockKey = "instance_lock";
+
     public static OpenWeatherMapService instance(){
         if (instance == null){
             synchronized (lockKey){
@@ -106,7 +114,29 @@ public class OpenWeatherMapService {
         return null;
     }
 
-    public Bitmap requestWeatherIcon(String id){
+    public Bitmap requestWeatherIcon(Context context, String iconId){
+        if (context == null) return null;
+        if (!fileExists(context, iconId)){
+            getAndSaveIconFromNetwork(context, iconId);
+            if (!fileExists(context, iconId)){
+                return getAndReturnIconFromNetwork(iconId);
+            }
+        } else {
+            Log.v("cache", "alrea exists.using file..." + iconId);
+        }
+
+        return BitmapFactory.decodeFile(context.getFilesDir().getPath() + "/icon" + iconId + ".png" );
+    }
+
+    private boolean fileExists(Context context, String iconId) {
+        File file = new File(context.getFilesDir(), "icon" + iconId + ".png");
+        if(file.exists())
+            return true;
+        else
+            return false;
+    }
+
+    private Bitmap getAndReturnIconFromNetwork(String id) {
         try {
             String request = String.format( Locale.US,
                     "http://openweathermap.org/img/w/%s.png", id);
@@ -121,5 +151,32 @@ public class OpenWeatherMapService {
             e.printStackTrace();
         }
         return null;
+
+    }
+
+    public void getAndSaveIconFromNetwork(Context context, String iconId){
+        try {
+            // get the image and save as a file.
+            String request = String.format( Locale.US,
+                    "http://openweathermap.org/img/w/%s.png", iconId);
+            URL url = new URL(request);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestProperty("User-Agent", USER_AGENT);
+            if (connection.getResponseCode() == 200){
+                // creating the input stream from icon
+                BufferedInputStream in = new BufferedInputStream(connection.getInputStream());
+                File file = new File(context.getFilesDir(), "icon" + iconId + ".png");
+                // my local file writer, output stream
+                BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file) );
+                // until end of data, keep writing to file.
+                int i;
+                while ((i = in.read()) != -1){
+                    out.write(i);
+                }
+                out.flush();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -22,7 +22,7 @@ public class TestOpenWeatherMapService {
         result = OpenWeatherMapService.instance().requestCurrentWeather(547.6067,-122.3321);
         assertTrue("result is null!", result != null);
         result = OpenWeatherMapService.instance().requestCurrentWeather(null,null);
-        assertTrue("result is null!", result != null);
+        assertTrue("result is null!", result == null);
     }
 
     @Test
