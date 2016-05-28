@@ -6,9 +6,11 @@ import com.google.gson.GsonBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
+ * Test ForecastWeatherData for de/serialization to/from json.
  * Created by Michael on 5/15/2016.
  */
 public class TestForecastWeatherData {
@@ -49,7 +51,7 @@ public class TestForecastWeatherData {
     @Test
     public void testInstantiateForecastWeatherDataClass(){
         System.out.println("@Test - testInstantiateForecastWeatherDataClass");
-        assertTrue("Unable to instantiate ForecastWeatherData",(new ForecastWeatherData() != null));
+        assertNotNull("Unable to instantiate ForecastWeatherData",new ForecastWeatherData());
     }
 
     /**
@@ -59,7 +61,7 @@ public class TestForecastWeatherData {
     public void testGetInstanceFromJSonString(){
         Gson gson = new Gson();
         ForecastWeatherData result = gson.fromJson(inputJson, ForecastWeatherData.class);
-        assertTrue("Was unable to get ForecastWeatherData instance from Json String.", result instanceof ForecastWeatherData);
+        assertNotNull("Was unable to instantiate ForecastWeatherData from json", result);
     }
 
 
@@ -71,12 +73,12 @@ public class TestForecastWeatherData {
     public void testHasExpectedFields(){
         GsonBuilder builder = new GsonBuilder();
         // need to register rain and snow classes
-        builder.registerTypeAdapter(ForecastWeatherData.Rain.class, new ForecastWeatherData.RainDeserializer());
-        builder.registerTypeAdapter(ForecastWeatherData.Snow.class, new ForecastWeatherData.SnowDeserializer());
+        builder.registerTypeAdapter(Rain.class, new Rain.RainDeserializer());
+        builder.registerTypeAdapter(Snow.class, new Snow.SnowDeserializer());
         Gson gson = builder.create(); // new Gson();
         ForecastWeatherData result = gson.fromJson(inputJson, ForecastWeatherData.class);
         // check city
-        ForecastWeatherData.City city = result.city;
+        City city = result.city;
         assertTrue("Expecting city coord lon value", city.coord.lon.equals(138.933334));
         assertTrue("Expecting city coord lat value", city.coord.lat.equals(34.966671));
         assertTrue("Expecting city name value", city.name.equals("Shuzenji"));
@@ -89,20 +91,20 @@ public class TestForecastWeatherData {
         assertTrue("Expecting cnt value" , result.cnt.equals(2));
 
         // check each of the two periods in the list
-        ForecastWeatherData.Period period = result.list[0];
+        Period period = result.list[0];
         assertTrue("Expecting dt value but was " + period.dt ,
                 period.dt.equals(1463335200));
         // check weather values
-        ForecastWeatherData.Weather pWeather =  period.weather[0];
+        Weather pWeather =  period.weather[0];
         assertTrue("Expecting weather id value", pWeather.id.equals(500));
         assertTrue("Expecting weather main value", pWeather.main.equals("Rain"));
         assertTrue("Expecting weather description value", pWeather.description.equals("light rain"));
         assertTrue("Expecting weather icon value", pWeather.icon.equals("10n"));
         // check main values
-        ForecastWeatherData.Main pMain = period.main;
+        Main pMain = period.main;
         assertTrue("Expecting temp value", pMain.temp.equals(284.3));
         assertTrue("Expecting pressure value", pMain.pressure.equals(935.35));
-        assertTrue("Expecting humidity value", pMain.humidity.equals(new Double(97)));
+        assertTrue("Expecting humidity value", pMain.humidity.equals(97d));
         assertTrue("Expecting temp min value", pMain.temp_min.equals(284.3));
         assertTrue("Expecting temp max value", pMain.temp_max.equals(284.301));
         assertTrue("Expecting sea level value", pMain.sea_level.equals(1031.39));
@@ -112,7 +114,7 @@ public class TestForecastWeatherData {
         assertTrue("Expecting null snow value" , period.snow == null);
         assertTrue("Expecting wind speed value" , period.wind.speed.equals(0.88));
         assertTrue("Expecting wind deg wind value" , period.wind.deg.equals(189.004));
-        assertTrue("Expecting clouds all value" , period.clouds.all.equals(new Double(88)));
+        assertTrue("Expecting clouds all value" , period.clouds.all.equals(88d));
 
         period = result.list[1];
         assertTrue("Expecting dt value" , period.dt.equals(1463346000));
@@ -126,7 +128,7 @@ public class TestForecastWeatherData {
         pMain = period.main;
         assertTrue("Expecting temp value", pMain.temp.equals(285.18));
         assertTrue("Expecting pressure value", pMain.pressure.equals(934.42));
-        assertTrue("Expecting humidity value", pMain.humidity.equals(new Double(93)));
+        assertTrue("Expecting humidity value", pMain.humidity.equals(93d));
         assertTrue("Expecting temp min value", pMain.temp_min.equals(285.179));
         assertTrue("Expecting temp max value", pMain.temp_max.equals(285.18));
         assertTrue("Expecting sea level value", pMain.sea_level.equals(1030.52));
@@ -136,7 +138,7 @@ public class TestForecastWeatherData {
         assertTrue("Expecting null snow value" , period.snow == null);
         assertTrue("Expecting wind speed value" , period.wind.speed.equals(1.05));
         assertTrue("Expecting wind deg wind value" , period.wind.deg.equals(198.001));
-        assertTrue("Expecting clouds all value" , period.clouds.all.equals(new Double(76)));
+        assertTrue("Expecting clouds all value" , period.clouds.all.equals(76d));
     }
 
     /**

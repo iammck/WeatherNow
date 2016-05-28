@@ -3,24 +3,18 @@ package com.mck.weathernow.model;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Random;
-
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
+ *
+ * Test CurrentWeatherData for de/serialization to/from json.
  * Created by Michael on 5/14/2016.
  */
 public class TestCurrentWeatherData {
-    private Collection collection;
     private String inputJson;
 
     @Before
@@ -43,7 +37,7 @@ public class TestCurrentWeatherData {
     @Test
     public void testInstantiateCurrentWeatherDataClass(){
         System.out.println("@Test - testInstantiateCurrentWeatherDataClass");
-        assertTrue("Unable to instantiate CurrentWeatherData",(new CurrentWeatherData() != null));
+        assertNotNull("Unable to instantiate CurrentWeatherData", new CurrentWeatherData());
     }
 
     /**
@@ -53,7 +47,7 @@ public class TestCurrentWeatherData {
     public void testGetInstanceFromJSonString(){
         Gson gson = new Gson();
         CurrentWeatherData result = gson.fromJson(inputJson, CurrentWeatherData.class);
-        assertTrue("Was unable to get CurrentWeatherData instance from Json String.", result instanceof CurrentWeatherData);
+        assertNotNull("Was unable to get CurrentWeatherData instance from Json String.", result);
     }
 
     /**
@@ -63,25 +57,25 @@ public class TestCurrentWeatherData {
     public void testHasExpectedFields(){
         GsonBuilder builder = new GsonBuilder();
         // need to register rain and snow classes
-        builder.registerTypeAdapter(CurrentWeatherData.Rain.class, new CurrentWeatherData.RainDeserializer());
-        builder.registerTypeAdapter(CurrentWeatherData.Snow.class, new CurrentWeatherData.SnowDeserializer());
+        builder.registerTypeAdapter(Rain.class, new Rain.RainDeserializer());
+        builder.registerTypeAdapter(Snow.class, new Snow.SnowDeserializer());
         Gson gson = builder.create(); // new Gson();
         CurrentWeatherData result = gson.fromJson(inputJson, CurrentWeatherData.class);
         // check coord
         assertTrue("Expecting lon value", result.coord.lon.equals(-122.33));
         assertTrue("Expecting lat value", result.coord.lat.equals(47.61));
         // check weather values
-        CurrentWeatherData.Weather rWeather = result.weather[0];
+        Weather rWeather = result.weather[0];
         assertTrue("Expecting weather id value", rWeather.id.equals(500));
         assertTrue("Expecting weather main value", rWeather.main.equals("Rain"));
         assertTrue("Expecting weather description value", rWeather.description.equals("light rain"));
         assertTrue("Expecting weather icon value", rWeather.icon.equals("10d"));
         // check main values
-        CurrentWeatherData.Main rMain = result.main;
+        Main rMain = result.main;
         assertTrue("Expecting temp value", rMain.temp.equals(289.437));
         assertTrue("Expecting pressure value", rMain.pressure.equals(1016.59));
         assertTrue("Expecting humidity value of 83 but was " +
-                rMain.humidity.toString(), rMain.humidity.equals(new Double(83)));
+                rMain.humidity.toString(), rMain.humidity.equals(83d));
         assertTrue("Expecting temp min value", rMain.temp_min.equals(289.437));
         assertTrue("Expecting temp max value", rMain.temp_max.equals(289.437));
         assertTrue("Expecting sea level value", rMain.sea_level.equals(1027.05));
@@ -91,14 +85,14 @@ public class TestCurrentWeatherData {
         assertTrue("Expecting rain value", result.rain.threeHour.equals(1.355));
         assertTrue("Expecting null snow value" , result.snow == null);
         assertTrue("Expecting wind speed value" , result.wind.speed.equals(1.91));
-        assertTrue("Expecting wind deg wind value" , result.wind.deg.equals(new Double(231)));
-        assertTrue("Expecting clouds all value" , result.clouds.all.equals(new Double(92)));
+        assertTrue("Expecting wind deg wind value" , result.wind.deg.equals(231d));
+        assertTrue("Expecting clouds all value" , result.clouds.all.equals(92d));
 
         // dt, sys, (city) name, cod
         assertTrue("Expecting dt value", result.dt.equals(1463265986));
         assertTrue("Expecting sys country value" , result.sys.country.equals("US"));
-        assertTrue("Expecting sys sun rise value" , result.sys.sunrise.equals(new Long(1463229072)));
-        assertTrue("Expecting sys sun set value" , result.sys.sunset.equals(new Long(1463283657)));
+        assertTrue("Expecting sys sun rise value" , result.sys.sunrise.equals(1463229072L));
+        assertTrue("Expecting sys sun set value" , result.sys.sunset.equals(1463283657L));
         assertTrue("Expecting (city) name value" , result.name.equals("Seattle"));
         assertTrue("Expecting cod value" , result.cod.equals(200));
         assertTrue("Expecting (city) id value" , result.id.equals(5809844));
