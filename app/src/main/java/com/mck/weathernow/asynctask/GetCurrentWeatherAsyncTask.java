@@ -11,16 +11,16 @@ import com.mck.weathernow.service.OpenWeatherMapService;
  * Created by Michael on 5/16/2016.
  */
 public class GetCurrentWeatherAsyncTask extends AsyncTask<Object,Integer,CurrentWeatherData>{
-    public interface callback {
+    public interface Callback {
         void onCurrentWeatherResult(CurrentWeatherData data);
     }
 
-    GetCurrentWeatherAsyncTask.callback callback;
+    Callback callback;
 
     @Override
     protected CurrentWeatherData doInBackground(Object... params) {
         if (isCancelled()) return null;
-        callback = (GetCurrentWeatherAsyncTask.callback) params[0];
+        callback = (Callback) params[0];
         return OpenWeatherMapService.instance().requestCurrentWeather((Double)params[1],(Double)params[2]);
     }
 

@@ -10,6 +10,8 @@ import com.google.gson.GsonBuilder;
 import com.mck.weathernow.Constants;
 import com.mck.weathernow.model.CurrentWeatherData;
 import com.mck.weathernow.model.ForecastWeatherData;
+import com.mck.weathernow.model.Rain;
+import com.mck.weathernow.model.Snow;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -17,7 +19,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -74,9 +75,9 @@ public class OpenWeatherMapService {
             in.close();
             Gson gson = new GsonBuilder()
                     .registerTypeAdapter(
-                        CurrentWeatherData.Rain.class, new CurrentWeatherData.RainDeserializer())
+                        Rain.class, new Rain.RainDeserializer())
                     .registerTypeAdapter(
-                        CurrentWeatherData.Snow.class, new CurrentWeatherData.SnowDeserializer())
+                        Snow.class, new Snow.SnowDeserializer())
                     .create();
             return (gson.fromJson(response.toString(), CurrentWeatherData.class));
         } catch (IOException e) {
@@ -103,9 +104,9 @@ public class OpenWeatherMapService {
             in.close();
             Gson gson = new GsonBuilder()
                     .registerTypeAdapter(
-                            ForecastWeatherData.Rain.class, new ForecastWeatherData.RainDeserializer())
+                            Rain.class, new Rain.RainDeserializer())
                     .registerTypeAdapter(
-                            ForecastWeatherData.Snow.class, new ForecastWeatherData.SnowDeserializer())
+                            Snow.class, new Snow.SnowDeserializer())
                     .create();
             return (gson.fromJson(response.toString(), ForecastWeatherData.class));
         } catch (IOException e) {
@@ -130,10 +131,7 @@ public class OpenWeatherMapService {
 
     private boolean fileExists(Context context, String iconId) {
         File file = new File(context.getFilesDir(), "icon" + iconId + ".png");
-        if(file.exists())
-            return true;
-        else
-            return false;
+        return file.exists();
     }
 
     private Bitmap getAndReturnIconFromNetwork(String id) {

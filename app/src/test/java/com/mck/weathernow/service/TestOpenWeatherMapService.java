@@ -8,6 +8,9 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
+ * Integration test to assert the OpenWeatherMapService does use the
+ * network to retrieve an expected result.
+ *
  * Created by Michael on 5/15/2016.
  */
 public class TestOpenWeatherMapService {

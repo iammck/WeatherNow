@@ -11,6 +11,7 @@ import com.mck.weathernow.service.OpenWeatherMapService;
  * Created by Michael on 5/16/2016.
  */
 public class MockOpenWeatherMapService extends OpenWeatherMapService {
+    private int sleepTime;
     private CurrentWeatherData currentResult;
     private ForecastWeatherData forecastResult;
     private Bitmap iconResult;
@@ -21,6 +22,11 @@ public class MockOpenWeatherMapService extends OpenWeatherMapService {
 
     public static void tearDown(){
         instance = null;
+
+    }
+
+    public void setSleepTime(int sleepTime) {
+        this.sleepTime = sleepTime;
     }
 
     public void setCurrentResult(CurrentWeatherData data) {
@@ -35,11 +41,23 @@ public class MockOpenWeatherMapService extends OpenWeatherMapService {
 
     @Override
     public CurrentWeatherData requestCurrentWeather(Double lat, Double lon) {
+        sleep();
         return currentResult;
+    }
+
+    private void sleep() {
+        if (this.sleepTime > 0){
+            try {
+                Thread.sleep(sleepTime);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public ForecastWeatherData requestForecastWeather(Double lat, Double lon, Integer periods) {
+        sleep();
         return forecastResult;
     }
 
