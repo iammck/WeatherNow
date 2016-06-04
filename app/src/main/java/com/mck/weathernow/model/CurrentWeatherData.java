@@ -13,7 +13,7 @@ public class CurrentWeatherData {
     public Clouds clouds;
     public Rain rain;
     public Snow snow;
-    public Integer dt; // date in unix
+    public Long dt; // date in unix
     public Sys sys;
     public Integer id; // City id
     public String name; // City name
