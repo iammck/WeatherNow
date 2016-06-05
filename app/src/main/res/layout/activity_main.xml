@@ -8,22 +8,13 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.mck.weathernow.MainActivity"
-    android:orientation="vertical"
-    android:weightSum="2">
-
+    android:orientation="vertical">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/current_weather_fragment_container"
-        android:layout_weight="1"></LinearLayout>
+        android:id="@+id/weather_fragment_container"/>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/forecast_weather_fragment_container"
-        android:layout_weight="1"></LinearLayout>
 </LinearLayout>
 

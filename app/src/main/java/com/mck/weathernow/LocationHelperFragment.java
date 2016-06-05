@@ -36,28 +36,50 @@ public class LocationHelperFragment extends Fragment implements GoogleApiClient.
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest locationRequest;
 
+
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
+        Log.v(TAG, "onStart()");
         // create the googleApiClient for access to google services.
         mGoogleApiClient = new GoogleApiClient.Builder(getContext())
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.v(TAG, "onResume()");
         mGoogleApiClient.connect();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        if(mGoogleApiClient != null && mGoogleApiClient.isConnected()){
+        Log.v(TAG, "onPause()");
+        if(mGoogleApiClient != null && mGoogleApiClient.isConnected() ){
+            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.v(TAG, "onStop()");
+        if (mGoogleApiClient != null &&
+                (mGoogleApiClient.isConnecting() || mGoogleApiClient.isConnected())) {
+            Log.v(TAG, "disconnecting...");
             mGoogleApiClient.disconnect();
+
         }
     }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
+        Log.v(TAG, "onConnected()");
         // create location request instance
         locationRequest = new LocationRequest();
         locationRequest.setInterval(5000);
@@ -134,7 +156,13 @@ public class LocationHelperFragment extends Fragment implements GoogleApiClient.
 
     @Override
     public void onLocationChanged(Location location) {
-        ((MainActivity) getActivity()).onLocationUpdate(location);
+        Log.v(TAG, "onLocationChanged()");
+        MainActivity mainActivity= ((MainActivity) getActivity());
+        if (mainActivity != null){
+            mainActivity.onLocationUpdate(location);
+        } else {
+            Log.v(TAG, "unable to get handle to MainActivity");
+        }
     }
 
     @Override
