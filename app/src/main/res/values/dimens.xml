@@ -7,5 +7,17 @@
     <dimen name="city_name_text_size">42sp</dimen>
     <dimen name="weather_description_text_size">24sp</dimen>
     <dimen name="current_temp_text_size">78sp</dimen>
+    <dimen name="current_date_text_size">24sp</dimen>
+
+
+    <dimen name="forecast_date_text_size">36sp</dimen>
+    <dimen name="forecast_am_pm_text_size">24sp</dimen>
+    <dimen name="forecast_temp_text_size">42sp</dimen>
+
     <dimen name="forecast_text_size">24sp</dimen>
+
+    <dimen name="weather_card_padding" >12dp</dimen>
+    <dimen name="text_view_padding">8dp</dimen>
+
+
 </resources>

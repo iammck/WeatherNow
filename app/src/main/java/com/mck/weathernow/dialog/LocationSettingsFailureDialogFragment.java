@@ -1,4 +1,4 @@
-package com.mck.weathernow;
+package com.mck.weathernow.dialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -8,6 +8,8 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
+
+import com.mck.weathernow.R;
 
 /**
  * LocationSettingsFailureDialogFragment
@@ -20,7 +22,7 @@ public class LocationSettingsFailureDialogFragment extends DialogFragment {
         // Use a builder to construct the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View layout = inflater.inflate(R.layout.loc_settings_fail_fragment, null);
+        View layout = inflater.inflate(R.layout.fragment_loc_settings_fail, null);
         builder.setView(layout)
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
