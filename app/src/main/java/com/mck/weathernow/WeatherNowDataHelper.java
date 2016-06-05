@@ -21,12 +21,13 @@ public class WeatherNowDataHelper implements GetCurrentWeatherAsyncTask.Callback
     private boolean canceled;
 
     interface Callback {
-        public void onWeatherNowDataResult(WeatherNowData data);
+        void onWeatherNowDataResult(WeatherNowData data);
     }
 
     public void requestWeatherNowData(Callback callback, Double lat, Double lon, Integer periods){
         this.callback = callback;
         cancelAsyncTasks();
+        canceled = false;
         getCurrentWeatherAsyncTask = new GetCurrentWeatherAsyncTask();
         getCurrentWeatherAsyncTask.execute(
                 this, lat, lon);
