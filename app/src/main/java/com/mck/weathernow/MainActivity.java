@@ -6,9 +6,13 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.mck.weathernow.dialog.LocationSettingsFailureDialogFragment;
+import com.mck.weathernow.dialog.RequiresPermissionsDialogFragment;
+
 public class MainActivity extends AppCompatActivity
         implements ActivityCompat.OnRequestPermissionsResultCallback {
 
+    private static final String TAG = "MainActivity";
     // looking for location with great accuracy,
     private static final float GREAT_ACCURACY = 200;
 
@@ -19,6 +23,11 @@ public class MainActivity extends AppCompatActivity
         // if there is no saved instance state
         if (savedInstanceState == null) {
             // set up the weather fragment
+            WeatherNowFragment weatherNowFragment = new WeatherNowFragment();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.weather_fragment_container, weatherNowFragment)
+                    .commit();
         }
     }
 
@@ -37,13 +46,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void onLocationUpdate(Location location) {
-        Log.v("MainActivity", "onLocationUpdate " + location.toString());
+        Log.v(TAG, "onLocationUpdate " + location.toString());
         // if the accuracy is great, remove location helper fragment.
         if (location.getAccuracy() < GREAT_ACCURACY){
+            WeatherNowFragment weatherNowFragment = (WeatherNowFragment)
+                    getSupportFragmentManager().findFragmentById(R.id.weather_fragment_container);
+            weatherNowFragment.onLocationUpdate(location);
             getSupportFragmentManager()
                     .beginTransaction()
                     .remove(getSupportFragmentManager().findFragmentByTag(LocationHelperFragment.TAG))
-                    .commit();
+                    .commitAllowingStateLoss();
         }
     }
 
