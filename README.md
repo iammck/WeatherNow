@@ -2,8 +2,9 @@
 
 This project is a weekend code challenge distributed by JP Morgan Chase.
 
-The OpenWeatherMap API key has changed. You will need to get your own key and replace it in the necessary file in order to run the application successfully. Thank you for your appreciation.
+<font color='red'>The OpenWeatherMap API key has changed. You will need to get your own key and replace it in the necessary file in order to run the application successfully. Thank you for your appreciation.</font>
 
+<font color='green'>This project is no longer in production. Please check out [this]:(https://github.com/iammck/LocalWeatherNow) repo for current development.</font>
 ## Challenge Description:
 
 We would like you to make a weather application. The app should get the current GPS location of the device, make a web-service call to fetch the weather for that location (you can use any public API), parse the response and make a model, then display the relevant data on the UI.
